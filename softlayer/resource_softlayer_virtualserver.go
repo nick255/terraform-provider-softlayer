@@ -334,7 +334,7 @@ func WaitForPublicIpAvailable(d *schema.ResourceData, meta interface{}) (interfa
 
 	stateConf := &resource.StateChangeConf{
 		Pending: []string{"", "unavailable"},
-		Target:  "available",
+		Target:  []string{"available"},
 		Refresh: func() (interface{}, string, error) {
 			fmt.Println("Refreshing server state...")
 			client := meta.(*Client).virtualGuestService
@@ -369,7 +369,7 @@ func WaitForNoActiveTransactions(d *schema.ResourceData, meta interface{}) (inte
 
 	stateConf := &resource.StateChangeConf{
 		Pending: []string{"", "active"},
-		Target:  "idle",
+		Target:  []string{"idle"},
 		Refresh: func() (interface{}, string, error) {
 			client := meta.(*Client).virtualGuestService
 			transactions, err := client.GetActiveTransactions(id)
